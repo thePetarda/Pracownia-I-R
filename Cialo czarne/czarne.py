@@ -9,7 +9,7 @@ for elem in t:
     temperatura.append(elem + 273)
 
 
-napięcie = np.array([3.275, 4.825, 6.375, 7.855, 9.505, 11.175, 13.065, 14.945])
+napięcie = [3.275, 4.825, 6.375, 7.855, 9.505, 11.175, 13.065, 14.945]
 
 dane = np.array([temperatura, napięcie])
 
@@ -25,21 +25,21 @@ plt.errorbar(temp, nap, yerr=niepewnoscinap, xerr=niepewnoscitemp, label='', fmt
 plt.show()
 
 
-def line(x, a):
-    return a * (x ** 4)
+def line(x, a, b):
+    return a * (x ** 4) + b
 
 
 par, cov = curve_fit(line, temp, nap)
 
 print(par)
 perr = np.sqrt(np.diag(cov))
-print(cov)
+# print(cov)
 print(perr)
 
 line = []
 
 for i in temp:
-    line.append(par[0] * (i ** 4))
+    line.append(par[0] * (i ** 4) + par[1])
 
 
 plt.plot(temp, line, 'r')
